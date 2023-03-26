@@ -6,6 +6,7 @@ const Hero = () => {
         <Box position={'relative'} height="500px">
             <img
                 src={HeroImage}
+                alt=""
                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: -1 }}
             />
             <Container fixed>
