@@ -10,8 +10,8 @@ const Hero = () => {
                 md: '500px'
             },
             background: {
-                xs: 'rgba(0,0,0,0.7)',
-                sm: 'rgba(0,0,0,0.7)',
+                xs: 'rgba(0,0,0,0.5)',
+                sm: 'rgba(0,0,0,0.5)',
                 md: 'rgba(0,0,0,0.2)'
             }
         }}>
@@ -48,7 +48,7 @@ const Hero = () => {
                             md: 'right'
                         },
                         transform: {
-                            xs: 'translateY(10%)',
+                            xs: 'translateY(12%)',
                             sm: 'translateY(45%)',
                             md: 'translate(0%, -5%)',
                             lg: 'translate(5%, -5%)',
