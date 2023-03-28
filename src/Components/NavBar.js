@@ -8,7 +8,6 @@ const NavBar = () => {
                 sm: 'none',
                 md: 'flex'
             },
-            width: 1,
             justifyContent: 'center',
             gap: 4,
             alignItems: 'center',
