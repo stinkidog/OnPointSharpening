@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 const Home = () => {
 
     const [isSmallerThanSm, setIsSmallerThanSm] = useState(window.innerWidth <= 900);
+    const [hoveredImage, setHoveredImage] = useState(null);
 
     useEffect(() => {
         const handleResize = () => setIsSmallerThanSm(window.innerWidth <= 900);
@@ -19,12 +20,35 @@ const Home = () => {
         return () => window.removeEventListener('resize', handleResize);
     });
 
+    const handleImageHover = (tag) => {
+        setHoveredImage(tag);
+    }
+
+    const handleImageExit = () => {
+        setHoveredImage(null);
+    }
+
     const images = [
-        Hairdressing,
-        Gardening,
-        PetGrooming,
-        Tools,
-        Kitchen
+        {
+            src: Hairdressing,
+            tag: "Scissors"
+        },
+        {
+            src: Gardening,
+            tag: "Garden Tools"
+        },
+        {
+            src: PetGrooming,
+            tag: "Grooming Equipment"
+        },
+        {
+            src: Tools,
+            tag: "Woodworking Tools"
+        },
+        {
+            src: Kitchen,
+            tag: "Culinary Tools"
+        }
     ]
 
     return (
@@ -125,15 +149,43 @@ const Home = () => {
             <Grid container spacing={1} justifyContent="center" paddingTop={1}>
                 {images.map((image) => (
                     <Grid xl={true} lg={true} md={true} sm={8} xs={10}>
-                        <img
-                            src={image}
-                            alt=""
-                            style={{
-                                width: '100%',
-                                height: isSmallerThanSm ? '150px' : 'auto',
-                                objectFit: isSmallerThanSm ? 'cover' : 'contain',
-                            }}
-                        />
+                        <div 
+                            style={{position: 'relative', overflow: 'hidden'}}
+                            onMouseEnter={() => handleImageHover(image.tag)}
+                            onMouseLeave={() => handleImageExit()}
+                        >
+                            <img
+                                src={image.src}
+                                alt=""
+                                style={{
+                                    width: '100%',
+                                    height: isSmallerThanSm ? '150px' : 'auto',
+                                    objectFit: isSmallerThanSm ? 'cover' : 'contain',
+                                    transformOrigin: 'center',
+                                    transition: 'opacity 0.3s ease, transform 0.6s ease',
+                                    opacity: hoveredImage === image.tag ? 0.2 : 1,
+                                    transform: hoveredImage === image.tag ? 'scale(1.2)' : 'scale(1)'      
+                                }}   
+                            />
+                            <div style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontWeight: 600,
+                                fontSize: '18px',
+                                opacity: hoveredImage === image.tag ? 1 : 0,
+                                transition: 'opacity 0.5s ease',
+                                cursor: 'default'
+                                }}
+                            >
+                                {image.tag}
+                            </div>
+                        </div>
                     </Grid>
                 ))}
             </Grid>
@@ -169,6 +221,26 @@ const Home = () => {
                     <b>- I come to you!</b> That’s right, I come to you and sharpen all your scissors, knives or any other blunt instrument. <br />
                     <b>- Drop off service.</b> At the address below are lockers. Leave your items in one of the lockers, take the key, text me your name and locker number, I sharpen, text you and you collect - simple. Please ensure you leave the key in the locker once you've collected your items ready for the next customer. I will always endeavour to get your items sharpened same day as drop off. No items will be left in lockers over night. <br />
                     <b>- Postal service.</b> Fill out the contact form below and let me know which items are on their way, ensure you put all your contact details and return address within the parcel. Please ensure all parcels are well packaged, make certain it's stiffly packed and all sharp edges/tips are sufficiently padded thus not damaging your items or postal mail handlers. Yes I can re- tip a knife but what would I do with a postie? <b><u>I do not accept responsibility for loss or damage of any items. Please remember to get proof of postage.</u></b>
+                </Typography>
+                <Typography sx={{
+                    paddingTop: '2rem',
+                    fontWeight: '600',
+                    color: 'red'
+                }}>
+                    How convenient is that?
+                </Typography>
+                <Typography sx={{
+                    fontWeight: '600',
+                    fontSize: '18px',
+                    padding: {
+                        xs: '8% 10%',
+                        sm: '2% 10%',
+                        md: '2% 15%',
+                        lg: '2% 20%',
+                        xl: '2% 25%'
+                    }
+                }}>
+                    Having your tools sharpened, rather than replacing them, is better for the environment and more cost effective.
                 </Typography>
             </Box>
         </>
