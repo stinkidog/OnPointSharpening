@@ -1,12 +1,13 @@
 import Header from '../Components/Header';
 import Hero from '../Components/Hero';
-import { Box, Typography, Button, useMediaQuery } from '@mui/material';
+import { Box, Typography, Button, useMediaQuery, Hidden, recomposeColor } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 import Hairdressing from '../Assets/hairdressing.jpg';
 import Gardening from '../Assets/gardening.jpg';
 import PetGrooming from '../Assets/petGrooming.jpg';
 import Tools from '../Assets/tools.jpg';
 import Kitchen from '../Assets/kitchen.jpg';
+import Recycle from '../Assets/Recycle.jpg';
 import { useState, useEffect } from 'react';
 
 const Home = () => {
@@ -148,9 +149,9 @@ const Home = () => {
             </Box >
             <Grid container spacing={1} justifyContent="center" paddingTop={1}>
                 {images.map((image) => (
-                    <Grid xl={true} lg={true} md={true} sm={8} xs={10}>
-                        <div 
-                            style={{position: 'relative', overflow: 'hidden'}}
+                    <Grid xl={true} lg={true} md={true} sm={9} xs={10}>
+                        <div
+                            style={{ position: 'relative', overflow: 'hidden' }}
                             onMouseEnter={() => handleImageHover(image.tag)}
                             onMouseLeave={() => handleImageExit()}
                         >
@@ -164,27 +165,39 @@ const Home = () => {
                                     transformOrigin: 'center',
                                     transition: 'opacity 0.3s ease, transform 0.6s ease',
                                     opacity: hoveredImage === image.tag ? 0.2 : 1,
-                                    transform: hoveredImage === image.tag ? 'scale(1.2)' : 'scale(1)'      
-                                }}   
-                            />
-                            <div style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                bottom: 0,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontWeight: 600,
-                                fontSize: '18px',
-                                opacity: hoveredImage === image.tag ? 1 : 0,
-                                transition: 'opacity 0.5s ease',
-                                cursor: 'default'
+                                    transform: hoveredImage === image.tag ? 'scale(1.2)' : 'scale(1)',
+                                    paddingTop: '1rem'
                                 }}
-                            >
-                                {image.tag}
-                            </div>
+                            />
+                            {isSmallerThanSm ? (
+                                <div style={{
+                                    fontWeight: 600,
+                                    fontSize: '18px',
+                                    padding: '0.5rem 0'
+                                }}>
+                                    {image.tag}
+                                </div>
+                            ) : (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: '0rem 2rem',
+                                    fontWeight: 600,
+                                    fontSize: '18px',
+                                    opacity: hoveredImage === image.tag ? 1 : 0,
+                                    transition: 'opacity 0.5s ease',
+                                    cursor: 'default'
+                                }}
+                                >
+                                    {image.tag}
+                                </div>
+                            )}
                         </div>
                     </Grid>
                 ))}
@@ -233,14 +246,102 @@ const Home = () => {
                     fontWeight: '600',
                     fontSize: '18px',
                     padding: {
-                        xs: '8% 10%',
+                        xs: '6% 10%',
                         sm: '2% 10%',
-                        md: '2% 15%',
+                        md: '3% 15%',
                         lg: '2% 20%',
-                        xl: '2% 25%'
+                        xl: '1% 25%'
                     }
                 }}>
                     Having your tools sharpened, rather than replacing them, is better for the environment and more cost effective.
+                </Typography>
+                <img src={Recycle} style={{
+                    width: '40px',
+                    height: '100%',
+                    paddingBottom: '1rem'
+                }} />
+                <Typography sx={{
+                    padding: {
+                        xs: '1% 10%',
+                        sm: '1% 10%',
+                        md: '1% 15%',
+                        lg: '1% 20%',
+                        xl: '1% 25%'
+                    }
+                }}>
+                    If there's anything I've missed please ask away, I'm more than happy to help. <br />
+                </Typography>
+                <Typography sx={{fontSize: '48px'}}>
+                ☺
+                </Typography>
+            </Box>
+            <Box>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={6} sx={{
+                        paddingTop: '3rem',
+                        paddingLeft: {
+                            md: '10%',
+                            lg: '15%',
+                            xl: '20%'
+                        }
+                    }}>
+                        <Box>
+                            <Typography sx={{
+                                color: 'red',
+                                fontWeight: 600,
+                                fontSize: '32px'
+                            }}>
+                                OUT AND ABOUT!
+                            </Typography>
+                            <Typography sx={{
+                                paddingTop: '1rem',
+                                lineHeight: '2.5'
+                            }}>
+                                Mon 10th CLOSED <br />
+                                Tues 11th Sutton Scotney. <br />
+                                Wed 12th Ringwood market CANCELLED. <br />
+                                Thurs 13th Alresford market 8-1 <br />
+                                Friday 14th Romsey market 8-1:30 <br />
+                                Sat 15th Allotments, Park Rd 10-12. <br />
+                                <br />
+                                Future dates:- <br />
+                                Wed 19th Petersfield market. <br/>
+                                Wed 26th Ringwood market. <br />
+                                Sat 29th Barton Stacey allotments. 
+                            </Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={6} sx={{
+                        paddingTop: '3rem',
+                        paddingRight: {
+                            md: '10%',
+                            lg: '15%',
+                            xl: '20%'
+                        }
+                    }}>
+                        <div class="fb-page" 
+                            data-href="https://www.facebook.com/onpointsharpeningservices"
+                            data-tabs="timeline"
+                            data-small-header="false" 
+                            data-adapt-container-width="true" 
+                            data-hide-cover="false" 
+                            data-show-facepile="true">
+                                <blockquote cite="https://www.facebook.com/onpointsharpeningservices" class="fb-xfbml-parse-ignore">
+                                    <a href="https://www.facebook.com/onpointsharpeningservices">On Point Sharpening Services</a>
+                                </blockquote>
+                            </div>
+                    </Grid>
+                </Grid>
+                <Typography sx={{
+                    padding: {
+                        xs: '10% 10%',
+                        sm: '10% 10%',
+                        md: '8% 15%',
+                        lg: '8% 20%',
+                        xl: '8% 25%'
+                    }
+                }}>
+                    If you are a business and feel your customers would benefit from having us there please get in touch
                 </Typography>
             </Box>
         </>
